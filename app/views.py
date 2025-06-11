@@ -9,6 +9,7 @@ from flask import render_template, request, redirect, url_for, send_file, jsonif
 from config import headers
 from app import utils
 import io
+import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 
@@ -123,9 +124,26 @@ def charts(product_id):
     plt.savefig(f"./app/static/images/charts/{stats['product_id']}_pie.png")
     plt.close()
 
+    with open(f"./app/data/opinions/{product_id}.json", "r", encoding="UTF-8") as jf:
+        opinions = pd.DataFrame(json.load(jf))
+    opinions.stars = opinions.stars.apply(lambda s: float(s.split("/")[0].replace(",", ".")))
+
+    stars_counts = opinions.stars.value_counts().sort_index()
+    plt.figure(figsize=(8,5))
+    stars_counts.plot.bar(
+        color="skyblue",
+        title=f"Liczba opinii z poszczególnymi ocenami gwiazdkowymi dla produktu {product_id}"
+    )
+    plt.xlabel("Liczba gwiazdek")
+    plt.ylabel("Liczba opinii")
+    plt.xticks(rotation=0)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    plt.savefig(f"./app/static/images/charts/{stats['product_id']}_bar.png")
+    plt.close()
+
     return render_template("charts.html", product_id=product_id, product_name=stats['product_name'])
 
-# Eksport danych produktu do plików
 @app.route('/export/<product_id>/<format>')
 def export_product(product_id, format):
     data = get_product_data(product_id)
