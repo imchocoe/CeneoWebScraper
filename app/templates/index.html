@@ -2,10 +2,25 @@
 {% block title %}Opis projektu{% endblock %}
 {% block content %}
 <ol>
-    <li>Cel aplikacji</li> 
-    <li>Opis działania aplikacji</li>
-    <li>Zastosowane biblioteki</li> 
-    <li>Zastosowane podejścia</li>
+    <li>Cel aplikacji - Celem działania aplikacji jest pobieranie opinii o produktach z serwisu Ceneo.pl. Dla
+produktu, którego kod zostanie podany jako parametr należy pobrać jego nazwę oraz
+wszystkie dostępne opinie o nim.</li> 
+    <li>Opis działania aplikacji - Dla każdej opinii aplikacja pobiera i wyświetla:
+❖ identyfikator opinii
+❖ autora
+❖ rekomendację
+❖ liczbę gwiazdek
+❖ czy opinia jest potwierdzona zakupem
+❖ data wystawienia opinii
+❖ data zakupu produktu
+❖ ile osób uznało opinię za przydatną
+❖ ile osób uznało opinię za nieprzydatną
+❖ treść opinii
+❖ listę wad
+❖ listę zalet. 
+W przypadku gdy brakuje którejś wartości pole jest puste </li>
+    <li>Zastosowane biblioteki: app, os, json, requests, pandas, Beautiful Soup, matplotlib, flask, io, numpy</li> 
+    <li>Zastosowane podejścia: na ta chwile strukturalne</li>
 </ol>
 
 
